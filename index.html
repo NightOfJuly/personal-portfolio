@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="秦冬运，资深 Java 后端开发工程师。专注高并发微服务、实时计算、稳定性治理与 AI Agent 工程实践。"
+    />
+    <title>秦冬运 | Backend Engineer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Noto+Sans+SC:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="page-glow page-glow-one"></div>
+    <div class="page-glow page-glow-two"></div>
+
+    <header class="site-header">
+      <a class="brand" href="#top" aria-label="返回首页">
+        <span class="brand-mark">Q</span>
+        <span>Qin Dongyun</span>
+      </a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-label="打开导航">
+        <span></span>
+        <span></span>
+      </button>
+      <nav class="site-nav" aria-label="主导航">
+        <a href="#about">关于我</a>
+        <a href="#projects">项目案例</a>
+        <a href="#experience">经历</a>
+        <a href="#contact">联系我</a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero section">
+        <div class="hero-copy reveal">
+          <p class="eyebrow"><span class="status-dot"></span> OPEN TO NEW POSSIBILITIES</p>
+          <h1>
+            构建稳定、可演进的
+            <span>后端系统。</span>
+          </h1>
+          <p class="hero-intro">
+            我是秦冬运，一名资深 Java 后端开发工程师。用 10 年以上一线经验处理复杂业务、高并发链路与系统稳定性，
+            也在探索 AI Agent 如何真正进入工程现场。
+          </p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="#projects">查看代表项目 <span>↘</span></a>
+            <a class="button button-ghost" href="mailto:qindy0117@163.com">和我聊聊</a>
+          </div>
+        </div>
+
+        <div class="hero-panel reveal delay-one">
+          <div class="panel-topline">
+            <span>ENGINEERING PROFILE</span>
+            <span class="panel-code">01 / 04</span>
+          </div>
+          <div class="profile-orbit">
+            <div class="orbit orbit-large"></div>
+            <div class="orbit orbit-small"></div>
+            <div class="profile-core">
+              <strong>10<span>+</span></strong>
+              <small>YEARS OF<br />EXPERIENCE</small>
+            </div>
+            <span class="orbit-label label-java">JAVA</span>
+            <span class="orbit-label label-ai">AI AGENT</span>
+            <span class="orbit-label label-cloud">MICROSERVICES</span>
+          </div>
+          <div class="panel-footer">
+            <span>BEIJING · CHINA</span>
+            <span>BACKEND / AI ENGINEERING</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="metrics section reveal" aria-label="关键数据">
+        <article>
+          <strong>1000<span>万+</span></strong>
+          <p>日均行为事件实时处理</p>
+        </article>
+        <article>
+          <strong>6<span>×</span></strong>
+          <p>百万级任务分发吞吐提升</p>
+        </article>
+        <article>
+          <strong>60<span>%</span></strong>
+          <p>核心数据库 QPS 降低</p>
+        </article>
+        <article>
+          <strong>85<span>%+</span></strong>
+          <p>热点数据缓存命中率</p>
+        </article>
+      </section>
+
+      <section class="about section" id="about">
+        <div class="section-heading reveal">
+          <p class="eyebrow">01 / ABOUT</p>
+          <h2>技术深度，来自真实业务的反复锤炼。</h2>
+        </div>
+        <div class="about-grid">
+          <div class="about-copy reveal">
+            <p>
+              长期参与代驾核心业务系统建设，覆盖司机任务、营销活动、开放平台、通知回调与 LBS 服务。
+              我习惯从系统边界、链路压力和异常路径出发，把复杂问题拆成能长期维护的工程方案。
+            </p>
+            <p>
+              最近，我把同样的工程视角带入 AI 应用开发：关注 RAG、MCP、Agent、Context Engineering，
+              以及权限、可观测性、评估和人工审批这些决定 AI 系统能否上线的关键问题。
+            </p>
+          </div>
+          <div class="skill-groups reveal delay-one">
+            <article>
+              <h3>Backend Architecture</h3>
+              <p>Java · Spring Boot · Spring Cloud · Nacos · Feign · Gateway</p>
+            </article>
+            <article>
+              <h3>Data & Realtime</h3>
+              <p>MySQL · Redis · Kafka · Flink · Elasticsearch · Caffeine</p>
+            </article>
+            <article>
+              <h3>Engineering & AI</h3>
+              <p>Docker · Linux · Git · MCP · RAG · Agent · Context Engineering</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="projects section" id="projects">
+        <div class="section-heading reveal">
+          <p class="eyebrow">02 / SELECTED WORK</p>
+          <h2>在高并发与复杂业务之间，找到清晰的解法。</h2>
+        </div>
+
+        <div class="project-list">
+          <article class="project-card project-featured reveal">
+            <div class="project-index">01</div>
+            <div class="project-main">
+              <div class="project-kicker">REALTIME · HIGH CONCURRENCY</div>
+              <h3>司机任务平台</h3>
+              <p>
+                负责核心模块设计与演进，将任务下发、进度计算、奖励发放、活动排行、补偿修复和司机画像拆分为清晰模块。
+                通过 Kafka + Flink 实时链路、Redis 异步分发和多级缓存，让系统在高峰流量下仍然稳定响应。
+              </p>
+              <div class="project-tags">
+                <span>Spring Cloud</span><span>Kafka</span><span>Flink</span><span>Redis</span><span>Elastic-Job</span>
+              </div>
+            </div>
+            <div class="project-result">
+              <strong>30 → 5</strong>
+              <span>分钟</span>
+              <small>百万级任务全量分发耗时</small>
+            </div>
+          </article>
+
+          <article class="project-card reveal">
+            <div class="project-index">02</div>
+            <div class="project-main">
+              <div class="project-kicker">CAMPAIGN · RELIABILITY</div>
+              <h3>司机活动平台</h3>
+              <p>
+                支撑抽奖、签到、任务打卡与多阶段奖励发放。用 Redis Lua 保证资格校验、库存扣减和流水记录的原子性，
+                配合异步削峰、分布式锁、Fail-Fast 与 Requeue 策略降低重复发奖风险。
+              </p>
+              <div class="project-tags">
+                <span>Redis Lua</span><span>Kafka</span><span>MySQL</span><span>Strategy Pattern</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="project-card reveal">
+            <div class="project-index">03</div>
+            <div class="project-main">
+              <div class="project-kicker">OPEN PLATFORM · LBS</div>
+              <h3>开放平台与 LBS 服务</h3>
+              <p>
+                建设订单、司机、城市、优惠券、客户与发票等开放接口，完善签名校验、权限控制和异步回调。
+                封装百度 / 高德地图能力，并结合 Elasticsearch 支撑位置检索与管理。
+              </p>
+              <div class="project-tags">
+                <span>Open API</span><span>Elasticsearch</span><span>OSS</span><span>LBS</span>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="experience section" id="experience">
+        <div class="section-heading reveal">
+          <p class="eyebrow">03 / EXPERIENCE</p>
+          <h2>持续解决问题，也持续升级解决问题的方式。</h2>
+        </div>
+        <div class="timeline">
+          <article class="timeline-item reveal">
+            <div class="timeline-date">2017.05 — NOW</div>
+            <div class="timeline-marker"></div>
+            <div class="timeline-content">
+              <h3>资深 Java 开发工程师</h3>
+              <p class="company">北京亿心宜行汽车技术开发服务有限公司 · e代驾</p>
+              <p>负责核心业务系统研发与维护，独立承担模块设计、性能优化、线上故障排查和历史数据修复。</p>
+            </div>
+          </article>
+          <article class="timeline-item reveal">
+            <div class="timeline-date">2013.05 — 2017.03</div>
+            <div class="timeline-marker"></div>
+            <div class="timeline-content">
+              <h3>Java 开发工程师</h3>
+              <p class="company">北京科瑞哲数据系统有限公司</p>
+              <p>参与国家电网与中海油相关系统研发，负责后端功能、复杂 SQL、Oracle 存储过程与部署维护。</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="ai-section section reveal">
+        <div>
+          <p class="eyebrow">04 / WHAT'S NEXT</p>
+          <h2>Backend engineering<br /><span>meets AI Agent.</span></h2>
+        </div>
+        <div class="ai-copy">
+          <p>
+            我正在持续探索传统后端工程与 AI Agent 的结合点：从工具调用和 MCP 互操作，到评估、权限与生产稳定性。
+            不只是做 Demo，而是寻找真正可靠、可落地的 AI 工程路径。
+          </p>
+          <a href="mailto:qindy0117@163.com">讨论一个想法 <span>→</span></a>
+        </div>
+      </section>
+
+      <section class="contact section" id="contact">
+        <p class="eyebrow reveal">CONTACT</p>
+        <h2 class="reveal">有值得认真解决的问题？<br /><span>我们聊聊。</span></h2>
+        <a class="contact-email reveal" href="mailto:qindy0117@163.com">qindy0117@163.com <span>↗</span></a>
+      </section>
+    </main>
+
+    <footer>
+      <span>© <span id="year"></span> QIN DONGYUN</span>
+      <span>BUILT WITH CURIOSITY & CODE</span>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
