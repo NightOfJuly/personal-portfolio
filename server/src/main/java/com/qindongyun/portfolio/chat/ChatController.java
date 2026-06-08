@@ -49,6 +49,8 @@ public class ChatController {
         SseEmitter emitter = new SseEmitter(60_000L);
         AtomicBoolean closed = new AtomicBoolean(false);
 
+        send(emitter, closed, "message_delta", Map.of("content", "我正在整理回答，请稍等...\n\n"));
+
         assistantService.stream(request.sessionId(), request.message(), new ResumeAssistantService.ResponseListener() {
             @Override
             public void onDelta(String content) {
