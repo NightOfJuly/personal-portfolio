@@ -1,0 +1,21 @@
+server:
+  port: ${PORT:8080}
+
+spring:
+  application:
+    name: portfolio-ai-assistant
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+
+zai:
+  api-key: ${ZAI_API_KEY:}
+  base-url: ${ZAI_BASE_URL:https://open.bigmodel.cn/api/paas/v4/}
+  model: ${ZAI_MODEL:glm-4-flash}
+
+portfolio:
+  allowed-origin: ${PORTFOLIO_ALLOWED_ORIGIN:http://localhost:4173}
+

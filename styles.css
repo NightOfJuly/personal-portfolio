@@ -629,6 +629,213 @@ footer {
   transition-delay: 130ms;
 }
 
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.assistant-launcher {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 13px 18px;
+  border: 1px solid var(--accent);
+  border-radius: 999px;
+  background: var(--accent);
+  color: var(--accent-dark);
+  cursor: pointer;
+  font-family: var(--display);
+  font-size: 13px;
+  font-weight: 800;
+  box-shadow: 0 10px 36px rgba(0, 0, 0, 0.25);
+}
+
+.assistant-launcher-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #3f6f32;
+}
+
+.assistant-panel {
+  position: fixed;
+  right: 24px;
+  bottom: 82px;
+  z-index: 30;
+  display: none;
+  width: min(440px, calc(100vw - 32px));
+  max-height: min(720px, calc(100vh - 110px));
+  overflow: hidden;
+  border: 1px solid rgba(186, 252, 134, 0.44);
+  background: #0b1a16;
+  box-shadow: 0 22px 70px rgba(0, 0, 0, 0.4);
+}
+
+.assistant-panel.open {
+  display: grid;
+  grid-template-rows: auto auto auto minmax(130px, 1fr) auto;
+}
+
+.assistant-header {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 20px 20px 15px;
+  border-bottom: 1px solid var(--line);
+}
+
+.assistant-kicker {
+  margin: 0 0 7px;
+  color: var(--accent);
+  font-family: var(--display);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+}
+
+.assistant-header h2 {
+  margin: 0;
+  color: var(--text);
+  font-size: 19px;
+  letter-spacing: -0.03em;
+  line-height: 1.35;
+}
+
+.assistant-close {
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  font-size: 26px;
+  line-height: 1;
+}
+
+.assistant-notice {
+  margin: 0;
+  padding: 13px 20px;
+  border-bottom: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.7;
+}
+
+.assistant-suggestions {
+  display: flex;
+  gap: 7px;
+  padding: 13px 20px;
+  overflow-x: auto;
+  border-bottom: 1px solid var(--line);
+  scrollbar-width: none;
+}
+
+.assistant-suggestions::-webkit-scrollbar {
+  display: none;
+}
+
+.assistant-suggestions button {
+  flex: 0 0 auto;
+  padding: 6px 10px;
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--accent);
+  cursor: pointer;
+  font-size: 11px;
+}
+
+.assistant-messages {
+  display: grid;
+  gap: 10px;
+  align-content: start;
+  min-height: 150px;
+  padding: 16px 20px;
+  overflow-y: auto;
+}
+
+.assistant-empty {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.assistant-message {
+  max-width: 88%;
+  margin: 0;
+  padding: 9px 11px;
+  border: 1px solid var(--line);
+  color: var(--text);
+  font-size: 13px;
+  line-height: 1.7;
+  white-space: pre-wrap;
+}
+
+.assistant-message.user {
+  justify-self: end;
+  border-color: rgba(186, 252, 134, 0.4);
+  background: rgba(186, 252, 134, 0.08);
+}
+
+.assistant-message.error {
+  color: #ffd2bd;
+}
+
+.assistant-form {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 9px;
+  padding: 14px 20px 18px;
+  border-top: 1px solid var(--line);
+}
+
+.assistant-form textarea {
+  min-height: 48px;
+  resize: none;
+  border: 1px solid var(--line);
+  border-radius: 0;
+  outline: none;
+  background: rgba(255, 255, 255, 0.035);
+  color: var(--text);
+  font: inherit;
+  font-size: 13px;
+  line-height: 1.5;
+  padding: 9px;
+}
+
+.assistant-form textarea:focus {
+  border-color: var(--accent);
+}
+
+.assistant-form button {
+  align-self: stretch;
+  padding: 0 14px;
+  border: 1px solid var(--accent);
+  background: var(--accent);
+  color: var(--accent-dark);
+  cursor: pointer;
+  font-weight: 800;
+}
+
+.assistant-form button:disabled,
+.assistant-form textarea:disabled {
+  cursor: wait;
+  opacity: 0.62;
+}
+
+.project-card.assistant-highlight,
+.section.assistant-highlight {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px rgba(186, 252, 134, 0.18);
+}
+
 @media (max-width: 860px) {
   .site-header,
   .section,
@@ -761,5 +968,15 @@ footer {
 
   .metrics article {
     padding: 24px 16px;
+  }
+
+  .assistant-launcher {
+    right: 16px;
+    bottom: 16px;
+  }
+
+  .assistant-panel {
+    right: 16px;
+    bottom: 72px;
   }
 }

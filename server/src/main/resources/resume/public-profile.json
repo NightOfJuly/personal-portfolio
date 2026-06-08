@@ -1,0 +1,58 @@
+{
+  "profile": {
+    "name": "秦冬运",
+    "title": "资深 Java 后端开发工程师",
+    "location": "北京，中国",
+    "summary": "10 年以上后端研发经验，关注复杂业务、高并发链路、实时计算、稳定性治理与 AI Agent 工程实践。"
+  },
+  "skills": {
+    "backend": ["Java", "Spring Boot", "Spring Cloud", "Nacos", "Feign", "Gateway"],
+    "dataAndRealtime": ["MySQL", "Redis", "Kafka", "Flink", "Elasticsearch", "Caffeine"],
+    "engineeringAndAi": ["Docker", "Linux", "Git", "MCP", "RAG", "Agent", "Context Engineering"]
+  },
+  "experience": [
+    {
+      "period": "2017.05 - 至今",
+      "role": "资深 Java 开发工程师",
+      "company": "北京亿心宜行汽车技术开发服务有限公司 · e代驾",
+      "summary": "负责核心业务系统研发与维护，独立承担模块设计、性能优化、线上故障排查和历史数据修复。"
+    },
+    {
+      "period": "2013.05 - 2017.03",
+      "role": "Java 开发工程师",
+      "company": "北京科瑞哲数据系统有限公司",
+      "summary": "参与国家电网与中海油相关系统研发，负责后端功能、复杂 SQL、Oracle 存储过程与部署维护。"
+    }
+  ],
+  "projects": [
+    {
+      "id": "driver-task-platform",
+      "name": "司机任务平台",
+      "summary": "负责核心模块设计与演进，将任务下发、进度计算、奖励发放、活动排行、补偿修复和司机画像拆分为清晰模块。",
+      "technologies": ["Spring Cloud", "Kafka", "Flink", "Redis", "Elastic-Job"],
+      "results": ["百万级任务全量分发耗时从 30 分钟降低至 5 分钟"]
+    },
+    {
+      "id": "driver-campaign-platform",
+      "name": "司机活动平台",
+      "summary": "支撑抽奖、签到、任务打卡与多阶段奖励发放。使用 Redis Lua 保证资格校验、库存扣减和流水记录的原子性。",
+      "technologies": ["Redis Lua", "Kafka", "MySQL", "Strategy Pattern"]
+    },
+    {
+      "id": "open-platform-lbs",
+      "name": "开放平台与 LBS 服务",
+      "summary": "建设订单、司机、城市、优惠券、客户与发票等开放接口，完善签名校验、权限控制和异步回调。",
+      "technologies": ["Open API", "Elasticsearch", "OSS", "LBS"]
+    }
+  ],
+  "metrics": [
+    "日均处理 1000 万以上行为事件",
+    "百万级任务分发吞吐提升 6 倍",
+    "核心数据库 QPS 降低 60%",
+    "热点数据缓存命中率达到 85% 以上"
+  ],
+  "contact": {
+    "email": "qindy0117@163.com"
+  }
+}
+

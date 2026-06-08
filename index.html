@@ -137,7 +137,7 @@
         </div>
 
         <div class="project-list">
-          <article class="project-card project-featured reveal">
+          <article class="project-card project-featured reveal" data-project-id="driver-task-platform">
             <div class="project-index">01</div>
             <div class="project-main">
               <div class="project-kicker">REALTIME · HIGH CONCURRENCY</div>
@@ -157,7 +157,7 @@
             </div>
           </article>
 
-          <article class="project-card reveal">
+          <article class="project-card reveal" data-project-id="driver-campaign-platform">
             <div class="project-index">02</div>
             <div class="project-main">
               <div class="project-kicker">CAMPAIGN · RELIABILITY</div>
@@ -172,7 +172,7 @@
             </div>
           </article>
 
-          <article class="project-card reveal">
+          <article class="project-card reveal" data-project-id="open-platform-lbs">
             <div class="project-index">03</div>
             <div class="project-main">
               <div class="project-kicker">OPEN PLATFORM · LBS</div>
@@ -242,6 +242,45 @@
       <span>BUILT WITH CURIOSITY & CODE</span>
     </footer>
 
+    <button class="assistant-launcher" type="button" aria-controls="assistant-panel" aria-expanded="false">
+      <span class="assistant-launcher-dot"></span>
+      和 AI 简历助手聊聊
+    </button>
+
+    <section class="assistant-panel" id="assistant-panel" aria-label="AI 简历助手" aria-hidden="true">
+      <header class="assistant-header">
+        <div>
+          <p class="assistant-kicker">AI RESUME ASSISTANT</p>
+          <h2>你好，我是秦冬运的 AI 简历助手。</h2>
+        </div>
+        <button class="assistant-close" type="button" aria-label="关闭 AI 简历助手">×</button>
+      </header>
+      <p class="assistant-notice">
+        回答基于公开简历资料生成，不代表本人承诺。涉及薪资、入职时间等事项，请直接联系本人。
+      </p>
+      <div class="assistant-suggestions" aria-label="推荐问题">
+        <button type="button">请用一分钟介绍一下自己</button>
+        <button type="button">你最有代表性的项目是什么？</button>
+        <button type="button">你如何处理高并发和系统稳定性问题？</button>
+        <button type="button">如何联系本人？</button>
+      </div>
+      <div class="assistant-messages" aria-live="polite" aria-label="聊天消息">
+        <p class="assistant-empty">可以问我关于工作经历、技术能力和代表项目的问题。</p>
+      </div>
+      <form class="assistant-form">
+        <label class="sr-only" for="assistant-input">输入你的问题</label>
+        <textarea
+          id="assistant-input"
+          maxlength="500"
+          rows="2"
+          placeholder="例如：任务平台做过哪些优化？"
+          required
+        ></textarea>
+        <button type="submit">发送</button>
+      </form>
+    </section>
+
+    <script src="config.js"></script>
     <script src="script.js"></script>
   </body>
 </html>
