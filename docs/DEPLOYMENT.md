@@ -7,7 +7,7 @@
 | 部分 | 部署位置 | 说明 |
 | --- | --- | --- |
 | 静态作品集 | GitHub Pages | 托管 HTML、CSS 和 JavaScript |
-| Spring Boot API | 阿里云 ECS | Docker 运行后端，通过 Nginx 提供 HTTPS API |
+| Spring Boot API | 阿里云 ECS | Docker 运行后端，通过 Nginx Proxy Manager 提供 HTTPS API |
 
 ```text
 GitHub Pages 静态页面
@@ -20,10 +20,10 @@ https://api.example.com
 阿里云 ECS 安全组：80 / 443
         |
         v
-Nginx：TLS 与反向代理
+Nginx Proxy Manager：TLS 与反向代理
         |
         v
-127.0.0.1:8080
+Docker 网络：portfolio-ai-assistant:8080
         |
         v
 Docker：portfolio-ai-assistant
@@ -32,7 +32,7 @@ Docker：portfolio-ai-assistant
 智谱 AI
 ```
 
-生产环境不将 Spring Boot 的 `8080` 端口暴露到公网。
+生产环境不将 Spring Boot 的容器端口 `8080` 暴露到公网。ECS 宿主机可以保留 `127.0.0.1:8081` 用于本机健康检查，公网请求只走 `80` / `443`。
 
 ## 2. 准备资源
 
@@ -78,7 +78,8 @@ GitHub Pages 使用 HTTPS，因此浏览器侧 API 也必须使用 HTTPS。
 | `22/tcp` | 仅管理员固定 IP | SSH 运维 |
 | `80/tcp` | `0.0.0.0/0` | HTTP 跳转 HTTPS，证书验证 |
 | `443/tcp` | `0.0.0.0/0` | 对外 HTTPS API |
-| `8080/tcp` | 不开放 | Spring Boot 仅供本机 Nginx 访问 |
+| `8080/tcp` | 不开放 | Spring Boot 容器内部端口 |
+| `8081/tcp` | 不开放 | ECS 本机健康检查端口，仅绑定 `127.0.0.1` |
 
 ## 4. 安装运行环境
 
@@ -87,7 +88,7 @@ GitHub Pages 使用 HTTPS，因此浏览器侧 API 也必须使用 HTTPS。
 ```text
 Git
 Docker
-Nginx
+Nginx Proxy Manager
 ```
 
 Docker 安装方式根据 ECS 操作系统选择，使用阿里云官方 Docker 安装文档中的对应命令。
@@ -97,13 +98,13 @@ Docker 安装方式根据 ECS 操作系统选择，使用阿里云官方 Docker 
 将代码部署到 ECS，例如：
 
 ```text
-/opt/portfolio-site
+/opt/personal-portfolio
 ```
 
 进入仓库后构建镜像：
 
 ```bash
-cd /opt/portfolio-site/server
+cd /opt/personal-portfolio/server
 docker build -t portfolio-ai-assistant:0.1.0 .
 ```
 
@@ -142,19 +143,29 @@ chmod 600 /opt/portfolio-ai-assistant/.env
 
 ## 7. 运行后端容器
 
+当前服务器使用 Nginx Proxy Manager 容器承接公网 `80` / `443`。后端容器需要加入 Nginx Proxy Manager 所在的 Docker 网络，例如：
+
+```text
+nginx-proxy-manage_default
+```
+
+容器内服务仍监听 `8080`，宿主机只绑定 `127.0.0.1:8081` 供本机检查：
+
 ```bash
 docker run -d \
   --name portfolio-ai-assistant \
   --restart unless-stopped \
+  --network nginx-proxy-manage_default \
+  --network-alias portfolio-ai-assistant \
   --env-file /opt/portfolio-ai-assistant/.env \
-  -p 127.0.0.1:8080:8080 \
+  -p 127.0.0.1:8081:8080 \
   portfolio-ai-assistant:0.1.0
 ```
 
 先在 ECS 本机验证：
 
 ```bash
-curl http://127.0.0.1:8080/actuator/health
+curl http://127.0.0.1:8081/actuator/health
 ```
 
 预期响应：
@@ -165,7 +176,51 @@ curl http://127.0.0.1:8080/actuator/health
 }
 ```
 
-## 8. 配置 Nginx
+不要使用以下地址作为公网入口：
+
+```text
+http://公网IP:8081/
+```
+
+`8081` 只绑定在 `127.0.0.1`，公网无法直接访问，这是预期行为。
+
+## 8. 配置 Nginx Proxy Manager
+
+### 8.1 推荐配置
+
+在 Nginx Proxy Manager 中新增或修改 Proxy Host：
+
+| 配置项 | 值 |
+| --- | --- |
+| Domain Names | `api.example.com`，临时调试也可以使用 ECS 公网 IP |
+| Scheme | `http` |
+| Forward Hostname / IP | `portfolio-ai-assistant` |
+| Forward Port | `8080` |
+| Websockets Support | 开启 |
+| SSL | 为正式域名申请或选择证书 |
+
+Nginx Proxy Manager 和后端容器必须在同一个 Docker 网络中。当前约定为：
+
+```text
+nginx-proxy-manage_default
+```
+
+公网验证路径：
+
+```bash
+curl http://公网IP/actuator/health
+curl https://api.example.com/actuator/health
+```
+
+如果还没有域名和 HTTPS，可以先用公网 IP 验证 HTTP：
+
+```bash
+curl http://116.62.239.82/actuator/health
+```
+
+### 8.2 手写 Nginx 配置参考
+
+如果不用 Nginx Proxy Manager，而是在宿主机直接安装 Nginx，可参考下面的配置。
 
 创建：
 
@@ -190,7 +245,7 @@ server {
     ssl_certificate_key /etc/nginx/ssl/api.example.com.key;
 
     location / {
-        proxy_pass http://127.0.0.1:8080;
+        proxy_pass http://127.0.0.1:8081;
         proxy_http_version 1.1;
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
@@ -199,7 +254,7 @@ server {
     }
 
     location /api/v1/chat/stream {
-        proxy_pass http://127.0.0.1:8080;
+        proxy_pass http://127.0.0.1:8081;
         proxy_http_version 1.1;
         proxy_buffering off;
         proxy_cache off;
@@ -234,6 +289,17 @@ window.PORTFOLIO_API_BASE_URL =
     ? "http://localhost:8080"
     : "https://api.example.com";
 ```
+
+如果临时使用公网 IP 调试，可先写成：
+
+```js
+window.PORTFOLIO_API_BASE_URL =
+  window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1"
+    ? "http://localhost:8080"
+    : "http://116.62.239.82";
+```
+
+不要写成 `http://116.62.239.82:8081`，`8081` 不向公网开放。
 
 提交并推送代码后，在 GitHub 仓库中打开 `Settings > Pages`：
 
@@ -322,7 +388,7 @@ push tags: v*
 CD 执行步骤：
 
 1. GitHub Actions 通过 SSH 登录 ECS。
-2. 进入 `/opt/portfolio-site`。
+2. 进入代码目录，例如 `/opt/personal-portfolio`。
 3. 拉取指定 commit。
 4. 在 `server` 目录构建镜像：
 
@@ -337,20 +403,23 @@ docker build -t portfolio-ai-assistant:${GITHUB_SHA} .
 docker run -d \
   --name portfolio-ai-assistant \
   --restart unless-stopped \
+  --network nginx-proxy-manage_default \
+  --network-alias portfolio-ai-assistant \
   --env-file /opt/portfolio-ai-assistant/.env \
-  -p 127.0.0.1:8080:8080 \
+  -p 127.0.0.1:8081:8080 \
   portfolio-ai-assistant:${GITHUB_SHA}
 ```
 
 7. 在 ECS 本机验证：
 
 ```bash
-curl --fail http://127.0.0.1:8080/actuator/health
+curl --fail http://127.0.0.1:8081/actuator/health
 ```
 
-8. 通过公网域名验证：
+8. 通过 Nginx Proxy Manager 公网入口验证：
 
 ```bash
+curl --fail http://公网IP/actuator/health
 curl --fail https://api.example.com/actuator/health
 ```
 
@@ -371,7 +440,7 @@ GitHub Actions CD 只需要 SSH 发布权限，不需要智谱 API Key。
 
 ECS 上建议创建独立发布用户，并只授予必要权限：
 
-- 读取 `/opt/portfolio-site`。
+- 读取代码目录，例如 `/opt/personal-portfolio`。
 - 执行 Docker 构建和容器重启。
 - 读取 `/opt/portfolio-ai-assistant/.env`。
 
@@ -418,8 +487,10 @@ docker rm portfolio-ai-assistant
 docker run -d \
   --name portfolio-ai-assistant \
   --restart unless-stopped \
+  --network nginx-proxy-manage_default \
+  --network-alias portfolio-ai-assistant \
   --env-file /opt/portfolio-ai-assistant/.env \
-  -p 127.0.0.1:8080:8080 \
+  -p 127.0.0.1:8081:8080 \
   portfolio-ai-assistant:上一版镜像tag
 ```
 
@@ -438,7 +509,7 @@ docker run -d \
 发布新版本：
 
 ```bash
-cd /opt/portfolio-site
+cd /opt/personal-portfolio
 git pull
 cd server
 docker build -t portfolio-ai-assistant:0.2.0 .
@@ -447,10 +518,12 @@ docker rm portfolio-ai-assistant
 docker run -d \
   --name portfolio-ai-assistant \
   --restart unless-stopped \
+  --network nginx-proxy-manage_default \
+  --network-alias portfolio-ai-assistant \
   --env-file /opt/portfolio-ai-assistant/.env \
-  -p 127.0.0.1:8080:8080 \
+  -p 127.0.0.1:8081:8080 \
   portfolio-ai-assistant:0.2.0
-curl http://127.0.0.1:8080/actuator/health
+curl http://127.0.0.1:8081/actuator/health
 ```
 
 出现异常时，使用同样的运行命令重新启动上一个镜像版本：
@@ -486,14 +559,17 @@ http://localhost:4173
 
 ## 13. 上线检查
 
-- ECS 安全组未向公网开放 `8080`。
+- ECS 安全组未向公网开放 `8080` 和 `8081`。
 - SSH `22` 端口仅允许管理员 IP。
 - 域名、ICP备案和 HTTPS 证书已经准备完成。
 - `.env` 权限为 `600`，且未提交到 Git。
 - GitHub Actions 只保存 SSH 发布权限，不保存智谱 API Key。
 - 后端 CI 已通过 `mvn --batch-mode verify`。
-- Nginx 已关闭 SSE 路径的代理缓冲。
-- `/actuator/health` 可通过 HTTPS 访问。
+- 后端容器已加入 `nginx-proxy-manage_default` 网络。
+- Nginx Proxy Manager 的 Forward Hostname / IP 为 `portfolio-ai-assistant`，Forward Port 为 `8080`。
+- Nginx Proxy Manager 已为 SSE 路径关闭代理缓冲，或至少开启 Websockets Support 并验证流式响应正常。
+- ECS 本机 `http://127.0.0.1:8081/actuator/health` 可访问。
+- 公网入口 `/actuator/health` 可通过 HTTP 或 HTTPS 访问。
 - GitHub Pages 的 `config.js` 指向正式 API 域名。
 - 浏览器请求中不存在智谱 API Key。
 - 智谱控制台已经设置预算告警。
