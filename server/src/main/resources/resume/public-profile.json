@@ -3,25 +3,52 @@
     "name": "秦冬运",
     "title": "资深 Java 后端开发工程师",
     "location": "北京，中国",
-    "summary": "10 年以上后端研发经验，关注复杂业务、高并发链路、实时计算、稳定性治理与 AI Agent 工程实践。"
+    "summary": "10 年以上后端研发经验，关注复杂业务、高并发链路、实时计算、稳定性治理与 AI Agent 工程实践。",
+    "positioning": "适合需要 Java 后端、复杂业务系统、活动/任务平台、实时数据处理、系统性能优化和工程稳定性建设的岗位。"
+  },
+  "answerStyle": {
+    "principles": [
+      "先回答问题本身，再给项目证据",
+      "优先使用公开事实、职责和指标",
+      "不把所有经历一次性展开",
+      "没有公开依据的信息要说明无法确认"
+    ],
+    "goodSummary": "秦冬运是一名偏业务中后台和复杂系统治理的 Java 后端工程师，有 10 年以上经验。近年主要在 e代驾负责司机任务、活动、开放平台和 LBS 相关系统，覆盖任务分发、奖励发放、实时计算、缓存优化和线上问题治理。公开资料中比较突出的结果包括百万级任务分发耗时从 30 分钟降至 5 分钟、核心数据库 QPS 降低 60%、日均处理 1000 万以上行为事件。"
   },
   "skills": {
     "backend": ["Java", "Spring Boot", "Spring Cloud", "Nacos", "Feign", "Gateway"],
     "dataAndRealtime": ["MySQL", "Redis", "Kafka", "Flink", "Elasticsearch", "Caffeine"],
-    "engineeringAndAi": ["Docker", "Linux", "Git", "MCP", "RAG", "Agent", "Context Engineering"]
+    "engineeringAndAi": ["Docker", "Linux", "Git", "MCP", "RAG", "Agent", "Context Engineering"],
+    "strengths": [
+      "复杂业务建模与模块拆分",
+      "任务分发、奖励发放、活动玩法等业务链路设计",
+      "Kafka/Flink 驱动的实时计算与异步处理",
+      "Redis 缓存、Lua 原子操作和热点数据优化",
+      "MySQL 查询优化、历史数据修复和线上问题排查",
+      "AI Agent、RAG、MCP 与 Context Engineering 方向的工程实践关注"
+    ]
   },
   "experience": [
     {
       "period": "2017.05 - 至今",
       "role": "资深 Java 开发工程师",
       "company": "北京亿心宜行汽车技术开发服务有限公司 · e代驾",
-      "summary": "负责核心业务系统研发与维护，独立承担模块设计、性能优化、线上故障排查和历史数据修复。"
+      "summary": "负责核心业务系统研发与维护，独立承担模块设计、性能优化、线上故障排查和历史数据修复。",
+      "evidence": [
+        "围绕司机任务、司机活动、开放平台、LBS 等业务做后端设计与迭代",
+        "处理过任务下发、奖励发放、活动排行、司机画像、补偿修复等复杂链路",
+        "关注高并发场景下的缓存命中、数据库压力、消息异步化和实时计算"
+      ]
     },
     {
       "period": "2013.05 - 2017.03",
       "role": "Java 开发工程师",
       "company": "北京科瑞哲数据系统有限公司",
-      "summary": "参与国家电网与中海油相关系统研发，负责后端功能、复杂 SQL、Oracle 存储过程与部署维护。"
+      "summary": "参与国家电网与中海油相关系统研发，负责后端功能、复杂 SQL、Oracle 存储过程与部署维护。",
+      "evidence": [
+        "参与企业级信息系统研发",
+        "负责复杂 SQL、Oracle 存储过程和部署维护相关工作"
+      ]
     }
   ],
   "projects": [
@@ -29,20 +56,62 @@
       "id": "driver-task-platform",
       "name": "司机任务平台",
       "summary": "负责核心模块设计与演进，将任务下发、进度计算、奖励发放、活动排行、补偿修复和司机画像拆分为清晰模块。",
+      "role": "负责核心模块设计、链路拆分、性能优化和数据修复方案落地。",
+      "problem": "司机任务涉及百万级分发、进度计算、奖励发放和活动排行，链路长、数据量大，对吞吐和一致性要求高。",
+      "actions": [
+        "将任务下发、进度计算、奖励发放、活动排行、补偿修复和司机画像拆分为边界清晰的模块",
+        "结合 Kafka/Flink 处理行为事件和任务进度计算，减少同步链路压力",
+        "使用 Redis、Elastic-Job 等组件提升分发、缓存和定时处理能力"
+      ],
       "technologies": ["Spring Cloud", "Kafka", "Flink", "Redis", "Elastic-Job"],
-      "results": ["百万级任务全量分发耗时从 30 分钟降低至 5 分钟"]
+      "results": ["百万级任务全量分发耗时从 30 分钟降低至 5 分钟"],
+      "goodForQuestions": ["高并发", "复杂业务拆分", "实时计算", "性能优化", "任务平台"]
     },
     {
       "id": "driver-campaign-platform",
       "name": "司机活动平台",
       "summary": "支撑抽奖、签到、任务打卡与多阶段奖励发放。使用 Redis Lua 保证资格校验、库存扣减和流水记录的原子性。",
-      "technologies": ["Redis Lua", "Kafka", "MySQL", "Strategy Pattern"]
+      "role": "参与活动玩法、奖励链路和并发控制相关后端实现。",
+      "problem": "活动场景需要同时处理资格校验、库存扣减、奖励发放和流水记录，容易出现超发、重复发放或状态不一致。",
+      "actions": [
+        "使用 Redis Lua 将资格校验、库存扣减和流水记录封装为原子操作",
+        "通过策略模式支撑不同活动玩法和奖励规则",
+        "结合 Kafka/MySQL 处理异步发放、流水落库和后续补偿"
+      ],
+      "technologies": ["Redis Lua", "Kafka", "MySQL", "Strategy Pattern"],
+      "results": ["提升活动链路在并发场景下的一致性和可维护性"],
+      "goodForQuestions": ["Redis", "Lua", "并发控制", "活动系统", "奖励发放"]
     },
     {
       "id": "open-platform-lbs",
       "name": "开放平台与 LBS 服务",
       "summary": "建设订单、司机、城市、优惠券、客户与发票等开放接口，完善签名校验、权限控制和异步回调。",
-      "technologies": ["Open API", "Elasticsearch", "OSS", "LBS"]
+      "role": "负责开放接口、权限校验、异步回调和部分 LBS 能力建设。",
+      "problem": "开放平台需要把订单、司机、城市、优惠券、客户和发票等能力稳定输出给外部调用方，同时保证权限、安全和可追踪性。",
+      "actions": [
+        "建设开放 API，完善签名校验、权限控制和异步回调机制",
+        "使用 Elasticsearch、OSS、LBS 等能力支撑检索、文件和地理位置相关需求",
+        "围绕接口稳定性、调用方体验和问题追踪持续优化"
+      ],
+      "technologies": ["Open API", "Elasticsearch", "OSS", "LBS"],
+      "results": ["提升开放接口的安全性、稳定性和可维护性"],
+      "goodForQuestions": ["开放平台", "接口安全", "异步回调", "LBS", "Elasticsearch"]
+    },
+    {
+      "id": "ai-resume-assistant",
+      "name": "AI 简历助手",
+      "summary": "为个人作品集网站建设 AI 简历问答能力，支持访客围绕公开简历资料进行对话。",
+      "role": "负责前后端联调、流式接口、部署配置和模型接入。",
+      "problem": "静态作品集页面需要接入后端 AI 服务，并在跨域、代理、SSE 流式响应和模型配置之间保持稳定体验。",
+      "actions": [
+        "使用 Spring Boot 提供聊天流式接口",
+        "通过公开简历资料和系统提示词约束回答范围",
+        "配置 Nginx 反向代理、CORS、环境变量和容器化部署",
+        "在后端先发送提示性 message_delta，改善用户等待体感"
+      ],
+      "technologies": ["Spring Boot", "Server-Sent Events", "Docker", "Nginx", "Zhipu AI", "Prompt Engineering"],
+      "results": ["作品集页面可以通过 AI 助手回答候选人公开经历、项目和技能相关问题"],
+      "goodForQuestions": ["AI Agent", "RAG", "MCP", "SSE", "个人项目", "部署"]
     }
   ],
   "metrics": [
@@ -53,6 +122,23 @@
   ],
   "contact": {
     "email": "qindy0117@163.com"
+  },
+  "questionGuides": {
+    "selfIntroduction": [
+      "10 年以上 Java 后端经验",
+      "近年聚焦 e代驾核心业务系统",
+      "代表项目包括司机任务平台、司机活动平台、开放平台与 LBS 服务",
+      "优势是复杂业务拆分、高并发链路、实时计算、性能优化和稳定性治理"
+    ],
+    "technicalDepth": [
+      "可结合 Kafka/Flink 讲实时事件处理和任务进度计算",
+      "可结合 Redis/Lua/Caffeine 讲缓存、原子扣减和热点优化",
+      "可结合 MySQL/Elasticsearch 讲查询优化、检索和数据修复",
+      "可结合 Docker/Nginx/SSE 讲 AI 简历助手的工程部署"
+    ],
+    "notConfirmed": [
+      "公开资料中没有薪资、入职时间、求职状态、学历细节、手机号等信息",
+      "遇到未公开信息时建议通过邮箱联系本人确认"
+    ]
   }
 }
-
