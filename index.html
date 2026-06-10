@@ -140,49 +140,119 @@
           <article class="project-card project-featured reveal" data-project-id="driver-task-platform">
             <div class="project-index">01</div>
             <div class="project-main">
-              <div class="project-kicker">REALTIME · HIGH CONCURRENCY</div>
+              <div class="project-kicker">CORE · DRIVER OPERATIONS</div>
               <h3>司机任务平台</h3>
               <p>
-                负责核心模块设计与演进，将任务下发、进度计算、奖励发放、活动排行、补偿修复和司机画像拆分为清晰模块。
-                通过 Kafka + Flink 实时链路、Redis 异步分发和多级缓存，让系统在高峰流量下仍然稳定响应。
+                面向司机运营的任务平台，串联任务发布、司机圈选、分片分发、行为进度计算、奖励结算和异常补偿。
+                重点体现复杂业务建模、Kafka 行为消费、Redis 运行态缓存和奖励扩展框架。
               </p>
               <div class="project-tags">
-                <span>Spring Cloud</span><span>Kafka</span><span>Flink</span><span>Redis</span><span>Elastic-Job</span>
+                <span>Spring Boot</span><span>Kafka</span><span>Redis</span><span>ElasticJob</span><span>Reward Engine</span>
               </div>
             </div>
             <div class="project-result">
-              <strong>30 → 5</strong>
-              <span>分钟</span>
-              <small>百万级任务全量分发耗时</small>
+              <strong>闭环</strong>
+              <span>任务运营</span>
+              <small>发布、进度、发奖、补偿一体化</small>
             </div>
           </article>
 
-          <article class="project-card reveal" data-project-id="driver-campaign-platform">
+          <article class="project-card project-featured reveal" data-project-id="driver-campaign-platform">
             <div class="project-index">02</div>
             <div class="project-main">
-              <div class="project-kicker">CAMPAIGN · RELIABILITY</div>
-              <h3>司机活动平台</h3>
+              <div class="project-kicker">CAMPAIGN · REWARD RELIABILITY</div>
+              <h3>司机活动系统</h3>
               <p>
-                支撑抽奖、签到、任务打卡与多阶段奖励发放。用 Redis Lua 保证资格校验、库存扣减和流水记录的原子性，
-                配合异步削峰、分布式锁、Fail-Fast 与 Requeue 策略降低重复发奖风险。
+                支撑司机任务激励、积分兑换、礼包瓜分和抽奖活动。围绕活动阶段、任务记录、积分流水、奖品模板和发奖记录建模，
+                使用 Redis 锁、队列、Caffeine 缓存和 ElasticJob 处理并发结算、异步发奖和活动状态推进。
               </p>
               <div class="project-tags">
-                <span>Redis Lua</span><span>Kafka</span><span>MySQL</span><span>Strategy Pattern</span>
+                <span>Spring Cloud Alibaba</span><span>Nacos</span><span>Redis</span><span>Caffeine</span><span>State Pattern</span>
+              </div>
+            </div>
+            <div class="project-result">
+              <strong>多年</strong>
+              <span>活动演进</span>
+              <small>任务、积分、抽奖、发奖链路沉淀</small>
+            </div>
+          </article>
+
+          <article class="project-card project-featured reveal" data-project-id="openapi-service">
+            <div class="project-index">03</div>
+            <div class="project-main">
+              <div class="project-kicker">OPEN API · PARTNER INTEGRATION</div>
+              <h3>e代驾开放平台</h3>
+              <p>
+                面向外部商户、渠道方和聚合平台输出代驾核心能力。通过 AOP 责任链统一处理参数校验、QPM 限流、
+                appkey/sig 鉴权、日志追踪和异常兜底，并适配订单、司机、优惠券、发票和多渠道回调协议。
+              </p>
+              <div class="project-tags">
+                <span>Spring AOP</span><span>Redis</span><span>ZooKeeper</span><span>Open API</span><span>Kubernetes</span>
+              </div>
+            </div>
+            <div class="project-result">
+              <strong>治理</strong>
+              <span>开放接口</span>
+              <small>鉴权、限流、回调、链路追踪</small>
+            </div>
+          </article>
+
+          <article class="project-card reveal" data-project-id="lbs-service">
+            <div class="project-index">04</div>
+            <div class="project-main">
+              <div class="project-kicker">LBS · MAP DATA PLATFORM</div>
+              <h3>lbsService 位置服务中台</h3>
+              <p>
+                封装百度、高德和内部 POI 数据源，为下单、费用预估、目的地推荐、城市识别和路线规划提供统一 LBS API。
+                基于 Elasticsearch 管理 POI 与目的地数据，并用 Kafka 消费订单地址事件反哺内部 POI 库。
+              </p>
+              <div class="project-tags">
+                <span>Elasticsearch</span><span>Kafka</span><span>JTS</span><span>H3</span><span>Docker</span>
               </div>
             </div>
           </article>
 
-          <article class="project-card reveal" data-project-id="open-platform-lbs">
-            <div class="project-index">03</div>
+          <article class="project-card reveal" data-project-id="grid-hot-service">
+            <div class="project-index">05</div>
             <div class="project-main">
-              <div class="project-kicker">OPEN PLATFORM · LBS</div>
-              <h3>开放平台与 LBS 服务</h3>
+              <div class="project-kicker">GEO GRID · HOT ZONE</div>
+              <h3>六边形网格热区服务</h3>
               <p>
-                建设订单、司机、城市、优惠券、客户与发票等开放接口，完善签名校验、权限控制和异步回调。
-                封装百度 / 高德地图能力，并结合 Elasticsearch 支撑位置检索与管理。
+                基于 Uber H3 将订单、司机定位、城市关系和热力值统一映射到六边形网格，
+                支撑司机端附近热区、运营后台实时/历史热力图、热区状态判断和历史数据导出。
               </p>
               <div class="project-tags">
-                <span>Open API</span><span>Elasticsearch</span><span>OSS</span><span>LBS</span>
+                <span>Uber H3</span><span>Kafka</span><span>Redis</span><span>Phoenix</span><span>MapV</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="project-card reveal" data-project-id="member-service">
+            <div class="project-index">06</div>
+            <div class="project-main">
+              <div class="project-kicker">MEMBERSHIP · COMMERCE</div>
+              <h3>会员服务系统</h3>
+              <p>
+                支撑会员等级、成长值、权益发放与核销、SVIP、特惠商城、权益金和渠道订单等业务。
+                通过多模块架构拆分用户接口、运营后台、离线任务和公共基础设施，形成会员权益与交易闭环。
+              </p>
+              <div class="project-tags">
+                <span>Spring Boot</span><span>Redis</span><span>Kafka</span><span>ElasticJob</span><span>Rights</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="project-card reveal" data-project-id="third-party-service">
+            <div class="project-index">07</div>
+            <div class="project-main">
+              <div class="project-kicker">THIRD PARTY · CAPABILITY HUB</div>
+              <h3>第三方能力聚合服务</h3>
+              <p>
+                统一封装 OCR、人脸核身、证件验真、短链接、OSS 签名、短信验证码、手机号归属地和天气预警等能力。
+                重点沉淀多供应商降级、FaceID 缓存签名、短链生成和调用链可观测能力。
+              </p>
+              <div class="project-tags">
+                <span>OCR</span><span>FaceID</span><span>Redis</span><span>ElasticJob</span><span>Docker</span>
               </div>
             </div>
           </article>

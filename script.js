@@ -87,7 +87,15 @@ function highlightElement(element) {
 
 function handleUiAction(action) {
   const allowedSections = new Set(["about", "projects", "experience", "contact"]);
-  const allowedProjects = new Set(["driver-task-platform", "driver-campaign-platform", "open-platform-lbs"]);
+  const allowedProjects = new Set([
+    "driver-task-platform",
+    "driver-campaign-platform",
+    "openapi-service",
+    "lbs-service",
+    "grid-hot-service",
+    "member-service",
+    "third-party-service",
+  ]);
 
   if (action.type === "open_contact") {
     highlightElement(document.querySelector("#contact"));

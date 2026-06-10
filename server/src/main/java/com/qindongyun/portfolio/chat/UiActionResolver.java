@@ -23,10 +23,30 @@ public class UiActionResolver {
                     "highlight_project",
                     Map.of("projectId", "driver-campaign-platform")));
         }
-        if (containsAny(normalized, "开放平台", "lbs", "地图", "位置")) {
+        if (containsAny(normalized, "开放平台", "openapi", "open api", "商户", "渠道")) {
             return List.of(new UiAction(
                     "highlight_project",
-                    Map.of("projectId", "open-platform-lbs")));
+                    Map.of("projectId", "openapi-service")));
+        }
+        if (containsAny(normalized, "lbs", "地图", "位置", "poi", "路径", "城市识别")) {
+            return List.of(new UiAction(
+                    "highlight_project",
+                    Map.of("projectId", "lbs-service")));
+        }
+        if (containsAny(normalized, "热区", "网格", "h3", "热力", "调度")) {
+            return List.of(new UiAction(
+                    "highlight_project",
+                    Map.of("projectId", "grid-hot-service")));
+        }
+        if (containsAny(normalized, "会员", "权益", "svip", "商城")) {
+            return List.of(new UiAction(
+                    "highlight_project",
+                    Map.of("projectId", "member-service")));
+        }
+        if (containsAny(normalized, "第三方", "ocr", "faceid", "人脸", "短链", "天气预警")) {
+            return List.of(new UiAction(
+                    "highlight_project",
+                    Map.of("projectId", "third-party-service")));
         }
         if (containsAny(normalized, "经历", "公司", "工作", "experience")) {
             return List.of(new UiAction(
@@ -56,4 +76,3 @@ public class UiActionResolver {
         return false;
     }
 }
-
